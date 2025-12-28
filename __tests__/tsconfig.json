@@ -1,0 +1,8 @@
+// VSCode-only tsconfig:
+// This file exists so VSCode treats files in __tests__/ as part of a
+// TypeScript project that includes Node.js types and test configuration.
+// It does NOT affect builds, publishing, or runtime behavior.
+{
+  "extends": "../tsconfig.test.json",
+  "include": ["./**/*", "../src/**/*"]
+}
