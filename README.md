@@ -27,7 +27,9 @@ The client authenticates using your Visualping email and password. Ugly, I know.
 
 This is obvious, but use environment variables to avoid hard-coding credentials.
 
-### Example
+### Examples
+
+#### Quickstart
 
 ```
 import {
@@ -98,3 +100,110 @@ main().catch((error) => {
 });
 
 ```
+
+### Basic Usage
+
+Initialize client
+
+```
+const client = new VisualpingClient(
+  'user@example.com',
+  'password',
+  30000 // optional timeout in ms
+);
+```
+
+User Information
+
+```
+// Get current user details
+const user = await client.describeUser();
+
+// Get available workspaces
+const workspaces = await client.getWorkspaces();
+```
+
+Managing Jobs
+
+```
+// List jobs with filters
+const activeJobs = await client.getJobs({
+  activeFilter: true,
+  pageSize: 50
+});
+
+// Get all jobs (auto-paginated)
+const allJobs = await client.getAllJobs();
+
+// Get specific job
+const job = await client.getJob(123);
+
+// For business users, include workspaceId
+const businessJob = await client.getJob(123, 456);
+```
+
+Creating Jobs
+
+```
+const newJob = await client.createJob({
+  url: 'https://example.com/page',
+  description: 'Monitor pricing page',
+  mode: JobMode.TEXT,
+  active: true,
+  interval: '60',      // Check every 60 minutes
+  trigger: '0.1',      // Alert on 10% change
+  target_device: TargetDevice.DESKTOP,
+  wait_time: 0
+});
+```
+
+Updating Jobs
+
+```
+// Update specific fields only
+await client.updateJob(123, {
+  description: 'New description',
+  interval: '30',
+  active: false
+});
+```
+
+Bulk Operations
+
+```
+// Pause multiple jobs at once
+await client.pauseJobs([123, 456, 789]);
+```
+
+Error Handling
+
+```
+import { VisualpingApiError } from 'visualping-client';
+
+try {
+  await client.getJob(123);
+} catch (error) {
+  if (error instanceof VisualpingApiError) {
+    console.error(`API Error ${error.status}: ${error.message}`);
+  }
+}
+```
+
+### Features
+
+- Automatic Authentication - handles token refresh automatically
+- Full TypeScript Support - Complete type definitions for all API endpoints
+- Retry Logic - Automatic retries with exponential backoff for transient errors
+- Timeout Handling - Configurable request timeouts
+- Business Account Support - Full support for workspace and organization features
+
+### Weird Stuff
+
+A collection of weird things from the visualping api
+
+- Sometimes, a jobId is sent as a number and sometimes as a string
+- Some fields from the api response are camelCase, and some snake_case. Ie `target_device` and `workspaceId` when creating a new job
+
+### License
+
+This work is licensed under the ISC license.
