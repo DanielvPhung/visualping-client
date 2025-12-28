@@ -150,6 +150,7 @@ export interface Subscription {
   groupId?: number;
   items: SubscriptionItem[];
   upcomingPlanName?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented as any in Visualping docs
   upcomingPlanEffectiveAt?: any;
   provider: PaymentProvider;
   nextBillingAt?: string;
@@ -187,7 +188,7 @@ export interface PersonalWorkspace {
   notificationMembers?: NotificationMember[];
   allowBusinessTrial?: boolean;
   timeZone?: string;
-  accountFeatures: Record<string, any>;
+  accountFeatures: AccountFeatureSet,
   promptId?: string;
   balances: Balances;
   counts: Counts;
@@ -205,7 +206,7 @@ export interface Organisation {
   plan?: Product;
   role: Role;
   timeZone?: string;
-  accountFeatures: Record<string, any>;
+  accountFeatures: AccountFeatureSet;
   promptId?: string;
   balances: Balances;
   counts: Counts;
@@ -241,7 +242,7 @@ export interface Workspace {
   plan?: Product;
   role: Role;
   timeZone?: string;
-  accountFeatures: Record<string, any>;
+  accountFeatures: AccountFeatureSet;
   promptId?: string;
   balances: Balances;
   counts: Counts;

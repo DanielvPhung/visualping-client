@@ -1,13 +1,13 @@
 import {
   JobCrop,
   JobKeywordAction,
-  JobMode,
+  JobModeType,
   JobSummalyzerSettings,
   LegacyAdvancedSchedule,
   LegacyJobPreactions,
   NotificationConfig,
   RetentionPolicy,
-  TargetDevice,
+  TargetDeviceType,
 } from '../common';
 
 export interface UpdateJobRequest {
@@ -22,7 +22,7 @@ export interface UpdateJobRequest {
   // Basic info
   url?: string; // 0-2000 characters
   description?: string;
-  mode?: JobMode;
+  mode?: JobModeType;
   active?: boolean;
 
   // Timing (note: strings in API, not numbers)
@@ -42,8 +42,9 @@ export interface UpdateJobRequest {
   // Browser settings
   disable_js?: boolean;
   enable_cookies_and_ad_blocker?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented as any in Visualping docs
   page_height?: any;
-  target_device?: TargetDevice;
+  target_device?: TargetDeviceType;
   wait_time?: number;
 
   // Advanced settings

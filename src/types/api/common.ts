@@ -4,7 +4,7 @@ export interface MinimalJob {
   description: string;
   isActive: boolean;
   faviconKey: string;
-  mode: JobMode;
+  mode: JobModeType;
   inProgress: boolean;
 
   workspaceId?: number;
@@ -69,7 +69,7 @@ export interface JobHistory {
   process_id: string;
   process_created: string;
   initial: boolean;
-  mode: JobMode;
+  mode: JobModeType;
 }
 
 export interface ChangeFeedback {
@@ -78,7 +78,7 @@ export interface ChangeFeedback {
 }
 
 export interface JobChange {
-  mode: JobMode;
+  mode: JobModeType;
   created: string;
   id: string;
   process_id: number;
@@ -103,13 +103,9 @@ export interface KeywordConfig {
   list: KeywordConfigItem[];
 }
 
-export interface LegacyJobPreAction {
-  [key: string]: any;
-}
-
 export interface LegacyJobPreactions {
   active?: boolean;
-  actions?: LegacyJobPreAction[];
+  actions?: Object[];
 }
 
 export interface LegacyAdvancedSchedule {
@@ -148,14 +144,14 @@ export const TargetDevice = {
   TABLET: '3',
   ALL: '4',
 } as const;
-export type TargetDevice = (typeof TargetDevice)[keyof typeof TargetDevice];
+export type TargetDeviceType = (typeof TargetDevice)[keyof typeof TargetDevice];
 
 export const JobMode = {
   VISUAL: 'VISUAL',
   WEB: 'WEB',
   TEXT: 'TEXT',
 } as const;
-export type JobMode = (typeof JobMode)[keyof typeof JobMode];
+export type JobModeType = (typeof JobMode)[keyof typeof JobMode];
 
 export interface JobSummalyzerSettings {
   importantDefinition?: string;

@@ -1,13 +1,13 @@
 import {
   JobCrop,
   JobKeywordAction,
-  JobMode,
+  JobModeType,
   JobSummalyzerSettings,
   LegacyAdvancedSchedule,
   LegacyJobPreactions,
   NotificationConfig,
   RetentionPolicy,
-  TargetDevice,
+  TargetDeviceType,
 } from '../common';
 
 /**
@@ -28,7 +28,7 @@ export interface CreateJobRequest {
   description?: string;
 
   /** MinimalJob mode */
-  mode: JobMode;
+  mode: JobModeType;
 
   /** Whether the job is active or paused */
   active: boolean;
@@ -73,7 +73,7 @@ export interface CreateJobRequest {
    * - `"3"` - Desktop crawling with special fold extractions
    * - `"4"` - Full page desktop crawling (mostly used with text jobs)
    */
-  target_device: TargetDevice;
+  target_device: TargetDeviceType;
 
   /** Number of seconds to wait after crawling and before applying any actions on the web page. */
   wait_time: number;

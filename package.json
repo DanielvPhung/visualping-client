@@ -22,8 +22,7 @@
     "typecheck:tests": "tsc -p tsconfig.test.json",
     "test": "npm run build && node --import tsx --test __tests__/**/*.test.ts",
     "test:dev": "node --import tsx --test __tests__/**/*.test.ts",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "lint": "eslint src/**/*.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "prepublishOnly": "npm run lint && npm run typecheck:tests && npm test"
@@ -41,8 +40,12 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.27",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
     "prettier": "^3.7.4",
     "tsx": "^4.21.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.50.1"
   }
 }

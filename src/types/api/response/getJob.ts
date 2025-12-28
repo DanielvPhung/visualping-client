@@ -3,14 +3,14 @@ import {
   JobCrop,
   JobHistory,
   JobKeywordAction,
-  JobMode,
+  JobModeType,
   JobSummalyzerSettings,
   KeywordConfig,
   LegacyAdvancedSchedule,
   LegacyJobPreactions,
   NotificationConfig,
   RetentionPolicy,
-  TargetDevice,
+  TargetDeviceType,
 } from '../common';
 
 export interface FullJobDetails {
@@ -35,7 +35,7 @@ export interface FullJobDetails {
   active: boolean;
   description: string;
   url: string;
-  mode: JobMode;
+  mode: JobModeType;
   crop: JobCrop;
   proxy_id: number;
   prompt_id: string | null;
@@ -45,8 +45,9 @@ export interface FullJobDetails {
   keywords: string;
   disable_js: boolean;
   enable_cookies_and_ad_blocker: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented as any in Visualping docs
   page_height: any;
-  target_device: TargetDevice;
+  target_device: TargetDeviceType;
   wait_time: number;
   preactions: LegacyJobPreactions;
   advanced_schedule: LegacyAdvancedSchedule;

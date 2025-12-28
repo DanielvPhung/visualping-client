@@ -4,7 +4,7 @@ export const JobUpdateImpact = {
   PREVIEW_BREAKING: 'preview-breaking',
   RENDER_BREAKING: 'render-breaking',
 } as const;
-export type JobUpdateImpact =
+export type JobUpdateImpactType =
   (typeof JobUpdateImpact)[keyof typeof JobUpdateImpact];
 
 export interface EstimatedConsumption {
@@ -14,10 +14,10 @@ export interface EstimatedConsumption {
 }
 
 export interface UpdateJobDetails {
-  updates: JobUpdateImpact;
+  updates: JobUpdateImpactType;
   estimatedConsumption: EstimatedConsumption;
   result?: {
     jobId: number;
-    impact: JobUpdateImpact;
+    impact: JobUpdateImpactType;
   };
 }

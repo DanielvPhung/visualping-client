@@ -1,4 +1,4 @@
-import { JobMode } from '../common';
+import { JobModeType } from '../common';
 
 export type JobSortBy =
   | 'id_asc'
@@ -24,7 +24,7 @@ export const FrequencyFilter = {
   _1D_EXCL_TO_500H_EXCL: '1d_excl_to_500h_excl',
   ABOVE_500H_INCL: 'above_500h_incl',
 } as const;
-export type FrequencyFilter =
+export type FrequencyFilterType =
   (typeof FrequencyFilter)[keyof typeof FrequencyFilter];
 
 export const EventFilter = {
@@ -33,7 +33,7 @@ export const EventFilter = {
   ERRORED: 'errored',
   CHECKED: 'checked',
 } as const;
-export type EventFilter = (typeof EventFilter)[keyof typeof EventFilter];
+export type EventFilterType = (typeof EventFilter)[keyof typeof EventFilter];
 
 export const OutputMode = {
   NORMAL: 'normal',
@@ -41,18 +41,18 @@ export const OutputMode = {
   IDS_ONLY: 'ids_only',
   IDS_AND_WS_IDS: 'ids_and_wsIds',
 } as const;
-export type OutputMode = (typeof OutputMode)[keyof typeof OutputMode];
+export type OutputModeType = (typeof OutputMode)[keyof typeof OutputMode];
 
 export interface GetJobsParams {
   workspaceId?: number;
-  mode?: OutputMode;
+  mode?: OutputModeType;
   pageIndex?: number;
   pageSize?: number;
   activeFilter?: number[];
-  modeFilter?: JobMode[];
-  frequencyFilter?: FrequencyFilter[];
+  modeFilter?: JobModeType[];
+  frequencyFilter?: FrequencyFilterType[];
   hasAdvancedScheduleFilter?: 0 | 1;
-  eventFilter?: EventFilter[];
+  eventFilter?: EventFilterType[];
   dateFilter?:
     | 'since_last_login'
     | 'since_yesterday'

@@ -65,13 +65,12 @@ export class VisualpingClient {
   private lastRefreshTokenRefresh: Date | null = null;
   private lastIdTokenRefresh: Date | null = null;
 
-  constructor(
-    email: string,
-    password: string,
-    private timeoutMs: number = 30000
-  ) {
+  private timeoutMs: number;
+
+  constructor(email: string, password: string, timeoutMs: number = 30000) {
     this.email = email;
     this.password = password;
+    this.timeoutMs = timeoutMs;
   }
 
   // --------------------
@@ -122,7 +121,7 @@ export class VisualpingClient {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        let payload: any = undefined;
+        let payload: unknown;
         try {
           payload = await response.json();
         } catch {
@@ -132,8 +131,23 @@ export class VisualpingClient {
             text || response.statusText
           );
         }
-        const msg =
-          payload?.message ?? payload?.code ?? JSON.stringify(payload);
+        let msg: string;
+
+        if (
+          typeof payload === 'object' &&
+          payload !== null &&
+          ('message' in payload || 'code' in payload)
+        ) {
+          const p = payload as { message?: unknown; code?: unknown };
+          msg =
+            typeof p.message === 'string'
+              ? p.message
+              : typeof p.code === 'string'
+                ? p.code
+                : JSON.stringify(payload);
+        } else {
+          msg = JSON.stringify(payload);
+        }
         throw new VisualpingApiError(response.status, msg, payload);
       }
       return response.json() as T;
@@ -338,19 +352,19 @@ export class VisualpingClient {
    * });
    */
   async getJobs(
-    params?: GetJobsParams & { mode?: undefined }
+    jobParams?: GetJobsParams & { mode?: undefined }
   ): Promise<JobsNormalResponse>;
   async getJobs(
-    params: GetJobsParams & { mode: typeof OutputMode.NORMAL }
+    jobParams: GetJobsParams & { mode: typeof OutputMode.NORMAL }
   ): Promise<JobsNormalResponse>;
   async getJobs(
-    params: GetJobsParams & { mode: typeof OutputMode.IDS_ONLY }
+    jobParams: GetJobsParams & { mode: typeof OutputMode.IDS_ONLY }
   ): Promise<JobsIdsOnlyResponse>;
   async getJobs(
-    params: GetJobsParams & { mode: typeof OutputMode.IDS_AND_WS_IDS }
+    jobParams: GetJobsParams & { mode: typeof OutputMode.IDS_AND_WS_IDS }
   ): Promise<JobsIdsAndWsIdsResponse>;
   async getJobs(
-    params: GetJobsParams & { mode: typeof OutputMode.COUNTS_ONLY }
+    jobParams: GetJobsParams & { mode: typeof OutputMode.COUNTS_ONLY }
   ): Promise<JobsCountsOnlyResponse>;
   async getJobs(
     jobParams: GetJobsParams = {} as GetJobsParams
