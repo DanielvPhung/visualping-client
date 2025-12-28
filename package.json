@@ -1,6 +1,6 @@
 {
   "name": "visualping-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Visualping API wrapper for Node.js with TypeScript support",
   "homepage": "https://github.com/DanielvPhung/visualping-client#readme",
   "bugs": {
