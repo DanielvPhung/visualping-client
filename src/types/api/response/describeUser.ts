@@ -188,7 +188,7 @@ export interface PersonalWorkspace {
   notificationMembers?: NotificationMember[];
   allowBusinessTrial?: boolean;
   timeZone?: string;
-  accountFeatures: AccountFeatureSet,
+  accountFeatures: AccountFeatureSet;
   promptId?: string;
   balances: Balances;
   counts: Counts;
